@@ -16,16 +16,9 @@
 
 package org.gradle.integtests.resolve.verification
 
-
-import org.gradle.test.fixtures.plugin.PluginBuilder
-import org.gradle.test.fixtures.server.http.MavenHttpPluginRepository
-import org.junit.Rule
 import spock.lang.Unroll
 
 class DependencyVerificationWritingIntegTest extends AbstractDependencyVerificationIntegTest {
-
-    @Rule
-    MavenHttpPluginRepository pluginRepo = MavenHttpPluginRepository.asGradlePluginPortal(executer, mavenRepo)
 
     def "can generate an empty verification file"() {
         when:
@@ -585,11 +578,5 @@ class DependencyVerificationWritingIntegTest extends AbstractDependencyVerificat
                 )
             }
         }
-    }
-
-    private void addPlugin() {
-        def pluginBuilder = new PluginBuilder(file("some-plugin"))
-        pluginBuilder.addPlugin("println 'Hello, Gradle!'")
-        pluginBuilder.publishAs("com", "myplugin", "1.0", pluginRepo, executer).allowAll()
     }
 }
