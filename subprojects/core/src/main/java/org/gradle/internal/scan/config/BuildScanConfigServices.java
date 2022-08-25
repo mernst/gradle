@@ -25,7 +25,7 @@ import org.gradle.internal.service.ServiceRegistry;
 /**
  * Wiring of the objects that provide the build scan config integration.
  *
- * The objects provided here are are requested of the root project of the root build's service registry.
+ * The objects provided here are requested of the root project of the root build's service registry.
  */
 public class BuildScanConfigServices {
 

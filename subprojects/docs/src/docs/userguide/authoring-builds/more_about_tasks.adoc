@@ -689,7 +689,7 @@ When adding `@link:{javadocPath}/org/gradle/api/tasks/Nested.html[Nested]` to a 
 When adding `@link:{javadocPath}/org/gradle/api/tasks/Nested.html[Nested]` to an iterable, each element is treated as a separate nested input.
 Each nested input in the iterable is assigned a name, which by default is the dollar sign followed by the index in the iterable, e.g. `$2`.
 If an element of the iterable implements `link:{javadocPath}/org/gradle/api/Named.html[Named]`, then the name is used as property name.
-The ordering of the elements in the iterable is crucial for for reliable up-to-date checks and caching if not all of the elements implement `link:{javadocPath}/org/gradle/api/Named.html[Named]`.
+The ordering of the elements in the iterable is crucial for reliable up-to-date checks and caching if not all of the elements implement `link:{javadocPath}/org/gradle/api/Named.html[Named]`.
 Multiple elements which have the same name are not allowed.
 
 When adding `@link:{javadocPath}/org/gradle/api/tasks/Nested.html[Nested]` to a map, then for each value a nested input is added, using the key as name.

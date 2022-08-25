@@ -74,7 +74,7 @@ public interface PluginServiceRegistry {
     /**
      * alled once per build invocation on a build, to register any {@link org.gradle.api.invocation.Gradle} scoped services. These services are closed at the end of the build invocation.
      *
-     * <p>Global, user home, build session, build tree and and build scoped services are visible to the gradle scope services, but not vice versa.</p>
+     * <p>Global, user home, build session, build tree and build scoped services are visible to the gradle scope services, but not vice versa.</p>
      */
     void registerGradleServices(ServiceRegistration registration);
 

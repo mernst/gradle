@@ -26,7 +26,7 @@ public interface FileSystemNode {
     /**
      * Gets a snapshot from the current node with relative path filePath.substring(offset).
      *
-     * When calling this method, the caller needs to make sure the the snapshot is a child of this node or this node.
+     * When calling this method, the caller needs to make sure the snapshot is a child of this node or this node.
      * That means that filePath.substring(offset) does not include the {@link #getPathToParent()}.
      * Therefore, when filePath.length + 1 == offset, then this node will be returned.
      */

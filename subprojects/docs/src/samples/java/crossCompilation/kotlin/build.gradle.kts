@@ -13,8 +13,8 @@ dependencies {
 }
 
 // tag::java-cross-compilation[]
-require(hasProperty("javaHome")) { "Set the property 'javaHome' in your your gradle.properties pointing to a Java 6 or 7 installation" }
-require(hasProperty("targetJavaVersion")) { "Set the property 'targetJavaVersion' in your your gradle.properties to '1.6' or '1.7'" }
+require(hasProperty("javaHome")) { "Set the property 'javaHome' in your gradle.properties pointing to a Java 6 or 7 installation" }
+require(hasProperty("targetJavaVersion")) { "Set the property 'targetJavaVersion' in your gradle.properties to '1.6' or '1.7'" }
 
 val javaHome: String by project
 val targetJavaVersion: String by project

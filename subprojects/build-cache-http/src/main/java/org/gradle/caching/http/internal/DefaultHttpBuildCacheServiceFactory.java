@@ -119,7 +119,7 @@ public class DefaultHttpBuildCacheServiceFactory implements BuildCacheServiceFac
                         );
                 },
                 redirect -> {
-                    throw new IllegalStateException("Redirects are unsupported by the the build cache.");
+                    throw new IllegalStateException("Redirects are unsupported by the build cache.");
                 });
     }
 

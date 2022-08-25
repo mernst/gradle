@@ -18,7 +18,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_6
 }
 
-require(hasProperty("java6Home")) { "Set the property 'java6Home' in your your gradle.properties pointing to a Java 6 installation" }
+require(hasProperty("java6Home")) { "Set the property 'java6Home' in your gradle.properties pointing to a Java 6 installation" }
 val java6Home: String by project
 val javaExecutablesPath = File(java6Home, "bin")
 fun javaExecutable(execName: String): String {
