@@ -37,8 +37,6 @@ import org.gradle.internal.component.model.AbstractComponentGraphResolveState;
 import org.gradle.internal.component.model.ComponentArtifactMetadata;
 import org.gradle.internal.component.model.ComponentArtifactResolveMetadata;
 import org.gradle.internal.component.model.ComponentConfigurationIdentifier;
-import org.gradle.internal.component.model.ComponentGraphResolveState;
-import org.gradle.internal.component.model.ComponentIdGenerator;
 import org.gradle.internal.component.model.DefaultVariantMetadata;
 import org.gradle.internal.component.model.DependencyMetadata;
 import org.gradle.internal.component.model.ExcludeMetadata;
@@ -60,39 +58,22 @@ import java.util.Set;
 
 public class LenientPlatformGraphResolveState extends AbstractComponentGraphResolveState<LenientPlatformResolveMetadata> {
 
-    private final ComponentIdGenerator idGenerator;
-    private final ResolveState resolveState;
-    private final VirtualPlatformState virtualPlatformState;
     private final LenientPlatformVariantGraphResolveState variant;
 
-    public static LenientPlatformGraphResolveState of(
-        ComponentIdGenerator componentIdGenerator,
-        ModuleComponentIdentifier moduleComponentIdentifier,
-        ModuleVersionIdentifier moduleVersionIdentifier,
-        VirtualPlatformState virtualPlatformState,
-        ResolveState resolveState
-    ) {
-        LenientPlatformResolveMetadata metadata = new LenientPlatformResolveMetadata(moduleComponentIdentifier, moduleVersionIdentifier);
-        return new LenientPlatformGraphResolveState(componentIdGenerator.nextComponentId(), metadata, componentIdGenerator, virtualPlatformState, resolveState);
-    }
-
-    private LenientPlatformGraphResolveState(
-        long instanceId,
+    public LenientPlatformGraphResolveState(
+        long componentId,
+        long variantId,
         LenientPlatformResolveMetadata metadata,
-        ComponentIdGenerator idGenerator,
         VirtualPlatformState virtualPlatformState,
         ResolveState resolveState
     ) {
-        super(instanceId, metadata, resolveState.getAttributeDesugaring());
-        this.idGenerator = idGenerator;
-        this.resolveState = resolveState;
-        this.virtualPlatformState = virtualPlatformState;
+        super(componentId, metadata, resolveState.getAttributeDesugaring());
 
-        this.variant = createVariant(idGenerator, virtualPlatformState, resolveState, metadata.getId());
+        this.variant = createVariant(variantId, virtualPlatformState, resolveState, metadata.getId());
     }
 
     private static LenientPlatformVariantGraphResolveState createVariant(
-        ComponentIdGenerator idGenerator,
+        long instanceId,
         VirtualPlatformState virtualPlatformState,
         ResolveState resolveState,
         ModuleComponentIdentifier platformId
@@ -100,24 +81,11 @@ public class LenientPlatformGraphResolveState extends AbstractComponentGraphReso
         String name = Dependency.DEFAULT_CONFIGURATION;
         NamedVariantIdentifier variantId = new NamedVariantIdentifier(platformId, name);
         return new LenientPlatformVariantGraphResolveState(
-            idGenerator.nextVariantId(),
+            instanceId,
             platformId,
             virtualPlatformState,
             resolveState,
             new LenientPlatformVariantGraphResolveMetadata(variantId, name)
-        );
-    }
-
-    /**
-     * Create a copy of this component with the given ids.
-     */
-    public ComponentGraphResolveState copyWithIds(ModuleComponentIdentifier componentIdentifier, ModuleVersionIdentifier moduleVersionIdentifier) {
-        return new LenientPlatformGraphResolveState(
-            idGenerator.nextComponentId(),
-            getMetadata().copyWithIds(componentIdentifier, moduleVersionIdentifier),
-            idGenerator,
-            virtualPlatformState,
-            resolveState
         );
     }
 

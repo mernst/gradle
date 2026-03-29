@@ -48,13 +48,24 @@ public class VirtualPlatformState {
         state.registerPlatformOwner(this);
         if (participatingModules.add(state)) {
             resolveOptimizations.declareVirtualPlatformInUse();
-            ComponentState selected = platformModule.getSelected();
-            if (selected != null) {
+            ComponentState platformComponent = platformModule.getSelected();
+            if (platformComponent != null) {
                 // There is a possibility that a platform version was selected before a new member
                 // of the platform was discovered. In this case, we need to restart the selection,
                 // or some members will not be upgraded
-                for (NodeState nodeState : selected.getNodes()) {
+                for (NodeState nodeState : platformComponent.getNodes()) {
                     nodeState.markForVirtualPlatformRefresh();
+                }
+            }
+            // If any versions of this platform previously failed to resolve
+            // (e.g. an explicit platform dependency resolved before any
+            // belongsTo edges were discovered), replace those failures with
+            // virtual platform metadata. We recover all versions, not just the
+            // currently selected one, so that if selection later changes back to
+            // a previously failed version, it has the correct valid virtual state.
+            for (ComponentState version : platformModule.getAllVersions()) {
+                if (version.getMetadataResolveFailure() != null) {
+                    version.resolveAsVirtualPlatform();
                 }
             }
             hasForcedParticipatingModule |= isParticipatingModuleForced(state);
