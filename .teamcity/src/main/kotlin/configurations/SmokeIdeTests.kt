@@ -20,6 +20,7 @@ import common.FlakyTestStrategy
 import common.Os
 import common.buildScanTagParam
 import common.getBuildScanCustomValueParam
+import common.requiresNotEc2Agent
 import model.CIBuildModel
 import model.Stage
 
@@ -32,6 +33,11 @@ class SmokeIdeTests(
         id(buildTypeId(model) + suffix)
         name = "Smoke Ide Tests$suffix"
         description = "Tests against IDE sync process"
+
+        requirements {
+            // These tests are usually heavy and the build time is twice on EC2 agents
+            requiresNotEc2Agent()
+        }
 
         applyTestDefaults(
             model = model,

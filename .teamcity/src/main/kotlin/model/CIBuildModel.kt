@@ -757,21 +757,6 @@ enum class SpecificBuild {
         ): OsAwareBaseGradleBuildType = SmokeIdeTests(model, stage, flakyTestStrategy)
     }, ;
 
-    companion object {
-        /**
-         * Specific builds shown under the "Smoke Test" subproject in Pull Request Feedback.
-         */
-        val pullRequestFeedbackSmokeBuilds: Set<SpecificBuild> =
-            setOf(
-                SmokeTestsMaxJavaVersion,
-                ConfigCacheAndroidProjectSmokeTests,
-                GradleBuildSmokeTests,
-                ConfigCacheSmokeTestsMaxJavaVersion,
-                ConfigCacheSmokeTestsMinJavaVersion,
-                SmokeIdeTests,
-            )
-    }
-
     abstract fun create(
         model: CIBuildModel,
         stage: Stage,
