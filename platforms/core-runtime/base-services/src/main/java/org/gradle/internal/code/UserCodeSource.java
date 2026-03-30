@@ -16,7 +16,7 @@
 
 package org.gradle.internal.code;
 
-import org.gradle.internal.DisplayName;
+import org.gradle.api.Describable;
 import org.jspecify.annotations.Nullable;
 
 import java.net.URI;
@@ -29,25 +29,25 @@ public interface UserCodeSource {
     /**
      * Returns the display name of the user code.
      */
-    DisplayName getDisplayName();
+    Describable getDisplayName();
 
     /**
      * User code that is applied as a binary plugin.
      */
     class Binary implements UserCodeSource {
 
-        private final DisplayName displayName;
+        private final Describable displayName;
         private final String className;
         private final @Nullable String pluginId;
 
-        public Binary(DisplayName displayName, String className, @Nullable String pluginId) {
+        public Binary(Describable displayName, String className, @Nullable String pluginId) {
             this.displayName = displayName;
             this.className = className;
             this.pluginId = pluginId;
         }
 
         @Override
-        public DisplayName getDisplayName() {
+        public Describable getDisplayName() {
             return displayName;
         }
 
@@ -72,16 +72,16 @@ public interface UserCodeSource {
      */
     class Script implements UserCodeSource {
 
-        private final DisplayName displayName;
+        private final Describable displayName;
         private final @Nullable URI uri;
 
-        public Script(DisplayName displayName, @Nullable URI uri) {
+        public Script(Describable displayName, @Nullable URI uri) {
             this.displayName = displayName;
             this.uri = uri;
         }
 
         @Override
-        public DisplayName getDisplayName() {
+        public Describable getDisplayName() {
             return displayName;
         }
 

@@ -37,8 +37,10 @@ object UserCodeSourceCodec : Codec<UserCodeSource> {
             is UserCodeSource.Script -> {
                 writeSmallInt(2)
                 writeString(value.displayName.displayName)
-                writeNullableString(value.uri?.toASCIIString())
+                writeNullableString(value.uri?.toString())
             }
+
+            else -> error("Unexpected user code source type: ${value.javaClass.name}")
         }
     }
 
